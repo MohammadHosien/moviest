@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import urls from "../utils/url";
-import MoviesItem from "./moviesItem";
+import MoviesItem from "./MoviesItem";
 import { useParams } from "react-router-dom";
 
 const Movies = () => {
