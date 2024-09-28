@@ -6,6 +6,9 @@ export default {
       colors:{
         primary:{
           base:'#1cb9f7'
+        },
+        secondery:{
+          base:'#222B31'
         }
       }
     },
