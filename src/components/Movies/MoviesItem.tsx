@@ -1,31 +1,22 @@
-import { forwardRef, LegacyRef, useState } from "react";
+import { forwardRef, LegacyRef } from "react";
 import ENV from "../../utils/env";
-import { VscLoading } from "react-icons/vsc";
+import { useNavigate } from "react-router-dom";
+import Image from "../image/Image";
 
 const MoviesItem = forwardRef(
   (
     { movies, index, item }: { movies: any; index: number; item: any },
     ref: LegacyRef<HTMLDivElement>
   ) => {
-    const [imgLoading, setImgLoading] = useState(true);
+    const navigate=useNavigate()
     return (
       <div
-        className="flex flex-col"
+        onClick={()=>navigate(`/movie/${item.id}`)}
+        className="flex flex-col transition-all hover:scale-105 cursor-pointer"
         ref={movies.length - 1 === index ? ref : undefined}
       >
-        {imgLoading ? (
-          <div className="flex-1 min-h-48 bg-white text-primary-base font-[700] shadow-inner border flex items-center justify-center text-center rounded-xl">
-            <VscLoading size={50} className="animate-spin w-60" />
-          </div>
-        ) : null}
-
-        <img
-          className={`rounded-lg shadow-2xl mx-auto ${
-            !imgLoading ? "block" : "hidden"
-          }`}
-          onLoad={() => {
-            setImgLoading(false);
-          }}
+        <Image
+          className={`!rounded-lg !shadow-2xl !mx-auto`}
           src={`${ENV.imgBaseUrl}${item.poster_path}`}
         />
 

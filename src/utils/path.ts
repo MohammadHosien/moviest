@@ -1,6 +1,6 @@
 export const PATH={
     home:'/',
     discord:'/:discord',
-    genre:"/:genre",
+    genre:"/geners/:genre",
     movie:'/movie/:id'
 }

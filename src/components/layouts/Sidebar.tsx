@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import urls from "../../utils/url";
 import { VscLoading } from "react-icons/vsc";
 
 const Sidebar = () => {
-  const [genres, setGenres] = useState<{ name: string }[]>([]);
+  const [genres, setGenres] = useState<{ name: string; id: string }[]>([]);
   const [loading, setLoading] = useState(true);
   const params = useParams();
   const navigate = useNavigate();
+  const location=useLocation()
 
   useEffect(() => {
     (async () => {
@@ -31,7 +32,9 @@ const Sidebar = () => {
           <p className="text-[11.2px] pt-[1.2rem] ps-[1.2rem] pb-2">Discover</p>
           <li
             className={`text-[14.4px] p-[.9rem] mt-1 text-[#83a4ba] cursor-pointer flex items-center gap-2 hover:bg-[#222B31] hover:text-primary-base transition-all ${
-              !params.discord && "bg-[#222B31] text-primary-base"
+              location.pathname==="/"
+                ? "bg-[#222B31] text-primary-base"
+                : ""
             }`}
             onClick={() => navigate("/")}
           >
@@ -40,7 +43,7 @@ const Sidebar = () => {
           </li>
           <li
             className={`text-[14.4px] py-3 ps-4 text-[#83a4ba] flex items-center gap-2 cursor-pointer hover:bg-[#222B31] hover:text-primary-base transition-all ${
-              params.discord === "top_rated"
+              location.pathname === "/top_rated"
                 ? "bg-[#222B31] text-primary-base"
                 : ""
             }`}
@@ -51,7 +54,7 @@ const Sidebar = () => {
           </li>
           <li
             className={`text-[14.4px] p-4 text-[#83a4ba] flex items-center gap-2 cursor-pointer hover:bg-[#222B31] hover:text-primary-base transition-all ${
-              params.discord === "upcoming"
+              location.pathname === "/upcoming"
                 ? "bg-[#222B31] text-primary-base"
                 : ""
             }`}
@@ -64,15 +67,16 @@ const Sidebar = () => {
           </li>
         </ul>
         <hr className="border-[#83a4ba] border-[1px] mx-4" />
-        <p className="text-[11.2px] text-white pt-[1.2rem] ps-[1.2rem] pb-2">Genrse</p>
+        <p className="text-[11.2px] text-white pt-[1.2rem] ps-[1.2rem] pb-2">
+          Genrse
+        </p>
         <ul>
           {!loading ? (
             genres.map((i) => (
               <li
+                onClick={() => navigate(`/geners/${i.id}`)}
                 className={`text-[14.4px] py-3 ps-4 text-[#83a4ba] flex items-center gap-2 cursor-pointer hover:bg-[#222B31] hover:text-primary-base transition-all ${
-                  params.actions === "top_rated"
-                    ? "bg-[#222B31] text-primary-base"
-                    : ""
+                  params.genre == i.id ? "bg-[#222B31] text-primary-base" : ""
                 }`}
               >
                 <span className="material-icons text-[14.4px]">

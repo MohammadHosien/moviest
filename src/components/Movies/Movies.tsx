@@ -16,7 +16,9 @@ const Movies = () => {
     if (page > 1) {
       const fetchTmdb = async () => {
         setPageLoading(true);
-        const data = await fetch(urls.tmdb(params.discord!, page));
+        const data = await fetch(
+          urls.tmdb(params.discord!, page, params.genre)
+        );
         const response = await data.json();
         setMovies([...movies, ...response.results]);
         setPageLoading(false);
@@ -30,13 +32,13 @@ const Movies = () => {
     setPage(1);
     const fetchTmdb = async () => {
       setPageLoading(true);
-      const data = await fetch(urls.tmdb(params.discord!,1,params.genre));
+      const data = await fetch(urls.tmdb(params.discord!, 1, params.genre));
       const response = await data.json();
       setMovies(response.results);
       setPageLoading(false);
     };
     fetchTmdb();
-  }, [params.genre,params.discord]);
+  }, [params.discord, params.genre]);
 
   useEffect(() => {
     if (observer.current) {
@@ -57,7 +59,7 @@ const Movies = () => {
 
   return (
     <>
-      <div className="h-full overflow-auto pb-20">
+      <div className="overflow-auto h-full pb-20">
         <div className="col-span-full text-[32px] font-extrabold mt-6 ms-5">
           POPULAR
         </div>
